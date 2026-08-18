@@ -14,7 +14,7 @@ body{
     margin:0;
     min-height:100vh;
     background:#0b0b0f;
-    color:#fff;
+    color:white;
     font-family:Arial,sans-serif;
     padding:30px;
 }
@@ -33,35 +33,38 @@ h1{
 
 .total{
     text-align:center;
-    color:#8cff8c;
     font-size:19px;
     font-weight:bold;
+    color:#8cff8c;
     margin-bottom:30px;
 }
 
-/* TOP 3 */
+/* ================= TOP 3 ================= */
 
 .top3{
     display:flex;
-    align-items:flex-end;
     justify-content:center;
-    gap:18px;
-    height:280px;
+    align-items:flex-end;
+    gap:20px;
+    height:300px;
     margin-bottom:35px;
 }
 
 .top-card{
-    width:180px;
+    width:190px;
     display:flex;
     flex-direction:column;
-    justify-content:flex-end;
     align-items:center;
 }
 
 .top-name{
-    font-weight:bold;
     font-size:18px;
-    margin-bottom:8px;
+    font-weight:bold;
+    margin-bottom:6px;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    max-width:190px;
 }
 
 .top-percent{
@@ -73,7 +76,7 @@ h1{
 
 .bar-wrapper{
     width:100%;
-    height:190px;
+    height:200px;
     display:flex;
     align-items:flex-end;
 }
@@ -82,22 +85,34 @@ h1{
     width:100%;
     border-radius:14px 14px 5px 5px;
     background:linear-gradient(to top,#292933,#555563);
-    min-height:25px;
-    transition:height .7s cubic-bezier(.2,.8,.2,1);
 }
 
-.top-card:first-child .bar{
+/* STAŁE WYSOKOŚCI */
+
+#bar1{
+    height:100%;
+}
+
+#bar2{
+    height:58%;
+}
+
+#bar3{
+    height:38%;
+}
+
+#bar1{
     background:linear-gradient(to top,#d6a900,#f5c542);
 }
 
 .rank-number{
-    margin-top:8px;
+    margin-top:9px;
     font-size:18px;
     font-weight:bold;
     color:#777;
 }
 
-/* RANKING */
+/* ================= RANKING ================= */
 
 #ranking{
     position:relative;
@@ -109,10 +124,13 @@ h1{
     left:0;
     width:100%;
     height:68px;
+
     background:#15151c;
     border:1px solid #292933;
     border-radius:15px;
+
     padding:0 20px;
+
     display:flex;
     align-items:center;
 
@@ -145,10 +163,10 @@ h1{
 }
 
 .votes{
-    font-size:18px;
-    font-weight:bold;
     min-width:125px;
     text-align:right;
+    font-size:18px;
+    font-weight:bold;
 }
 
 .votes span{
@@ -156,10 +174,61 @@ h1{
 }
 
 .percent{
-    width:70px;
+    width:85px;
     text-align:right;
     color:#aaa;
     font-size:15px;
+    font-weight:bold;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:700px){
+
+    body{
+        padding:15px;
+    }
+
+    .top3{
+        gap:8px;
+        height:230px;
+    }
+
+    .top-card{
+        width:31%;
+    }
+
+    .bar-wrapper{
+        height:150px;
+    }
+
+    .top-name{
+        font-size:14px;
+        max-width:100%;
+    }
+
+    .player{
+        padding:0 12px;
+    }
+
+    .position{
+        width:45px;
+        font-size:18px;
+    }
+
+    .name{
+        font-size:15px;
+    }
+
+    .votes{
+        min-width:90px;
+        font-size:15px;
+    }
+
+    .percent{
+        width:60px;
+        font-size:13px;
+    }
 }
 </style>
 </head>
@@ -171,42 +240,80 @@ h1{
     <h1>🏆 Ranking głosów</h1>
 
     <div class="total">
-        ŁĄCZNA LICZBA GŁOSÓW: <span id="totalVotes">0</span>
+        ŁĄCZNA LICZBA GŁOSÓW:
+        <span id="totalVotes">0</span>
     </div>
+
+    <!-- TOP 3 -->
 
     <div class="top3">
 
+        <!-- TOP 2 -->
+
         <div class="top-card">
-            <div class="top-name" id="top2Name">---</div>
-            <div class="top-percent" id="top2Percent">0%</div>
+
+            <div class="top-name" id="top2Name">
+                ---
+            </div>
+
+            <div class="top-percent">
+                58%
+            </div>
 
             <div class="bar-wrapper">
                 <div class="bar" id="bar2"></div>
             </div>
 
-            <div class="rank-number">🥈 TOP 2</div>
+            <div class="rank-number">
+                🥈 TOP 2
+            </div>
+
         </div>
 
+
+        <!-- TOP 1 -->
+
         <div class="top-card">
-            <div class="top-name" id="top1Name">---</div>
-            <div class="top-percent" id="top1Percent">100%</div>
+
+            <div class="top-name" id="top1Name">
+                ---
+            </div>
+
+            <div class="top-percent">
+                100%
+            </div>
 
             <div class="bar-wrapper">
                 <div class="bar" id="bar1"></div>
             </div>
 
-            <div class="rank-number">🥇 TOP 1</div>
+            <div class="rank-number">
+                🥇 TOP 1
+            </div>
+
         </div>
 
+
+        <!-- TOP 3 -->
+
         <div class="top-card">
-            <div class="top-name" id="top3Name">---</div>
-            <div class="top-percent" id="top3Percent">0%</div>
+
+            <div class="top-name" id="top3Name">
+                ---
+            </div>
+
+            <div class="top-percent">
+                38%
+            </div>
 
             <div class="bar-wrapper">
                 <div class="bar" id="bar3"></div>
             </div>
 
-            <div class="rank-number">🥉 TOP 3</div>
+            <div class="rank-number">
+                🥉 TOP 3
+            </div>
+
         </div>
 
     </div>
@@ -215,229 +322,441 @@ h1{
 
 </div>
 
+
 <script>
 
+/* ================= OSOBY ================= */
+
 const names = [
-"GACEK33","Kefir","Bober","Ziemniok","Kabanos","Ogórek","Parówa",
-"Boczek","Kartofel","Papaj","Dzban","Kisiel","Serek","Majonez",
-"Cebulak","Pączek","Banan","Kremówka","Pyza","Kluska","Mopik",
-"Bobr","Krecik","Pieseł","Żabka","Szczurek","Chlebek","Bułka",
-"Mleczyk","Jogurt","Budyn","Ketchup","Musztarda","Pieróg","Rosół",
-"Schabik","Czosnek","Marchew","Buraczek","Fasolka","Kalafior",
-"Brokuł","Arbuzik","Kefirek","Kefir69","PanKefir","KefirEnjoyer",
-"BoberPL","ZiemniakTV","Dzbanek","Cebulson","Kabanosik","Parowkowy",
-"Boczuś","Ogóras","Kartofel69","Papajek","Mop","Kisielu","SerekPL",
-"Bananowy","Pączus","Klusior","Pyziak","Chlebson","Bułeczkowy",
-"Jogurt69","Mleczny","Majonezik","Ketchupik","Musztardowy",
-"BobrEnjoyer","KrecikPL","Zaba69","Piesełek","SzczurPL","XDkefir",
-"XDDZiemniak","NieMamNicku","Random","Nobody","Anon","Ktosik",
-"Widz","ZwyklyWidz","Losowy","DzbanekPL","KefirXD","BoberXD",
-"ZiemniakXD","KabanosXD","OgorekXD","MopXD","Kacper","Mati",
-"Kuba","Szymon","Wiktor","Oskar"
+"GACEK33",
+"Kefir",
+"Bober",
+"Ziemniok",
+"Kabanos",
+"Ogórek",
+"Parówa",
+"Boczek",
+"Kartofel",
+"Papaj",
+"Dzban",
+"Kisiel",
+"Serek",
+"Majonez",
+"Cebulak",
+"Pączek",
+"Banan",
+"Kremówka",
+"Pyza",
+"Kluska",
+"Mopik",
+"Bobr",
+"Krecik",
+"Pieseł",
+"Żabka",
+"Szczurek",
+"Chlebek",
+"Bułka",
+"Mleczyk",
+"Jogurt",
+"Budyn",
+"Ketchup",
+"Musztarda",
+"Pieróg",
+"Rosół",
+"Schabik",
+"Czosnek",
+"Marchew",
+"Buraczek",
+"Fasolka",
+"Kalafior",
+"Brokuł",
+"Arbuzik",
+"Kefirek",
+"Kefir69",
+"PanKefir",
+"KefirEnjoyer",
+"BoberPL",
+"ZiemniakTV",
+"Dzbanek",
+"Cebulson",
+"Kabanosik",
+"Parowkowy",
+"Boczuś",
+"Ogóras",
+"Kartofel69",
+"Papajek",
+"Mop",
+"Kisielu",
+"SerekPL",
+"Bananowy",
+"Pączus",
+"Klusior",
+"Pyziak",
+"Chlebson",
+"Bułeczkowy",
+"Jogurt69",
+"Mleczny",
+"Majonezik",
+"Ketchupik",
+"Musztardowy",
+"BobrEnjoyer",
+"KrecikPL",
+"Zaba69",
+"Piesełek",
+"SzczurPL",
+"XDkefir",
+"XDDZiemniak",
+"NieMamNicku",
+"Random",
+"Nobody",
+"Anon",
+"Ktosik",
+"Widz",
+"ZwyklyWidz",
+"Losowy",
+"DzbanekPL",
+"KefirXD",
+"BoberXD",
+"ZiemniakXD",
+"KabanosXD",
+"OgorekXD",
+"MopXD",
+"Kacper",
+"Mati",
+"Kuba",
+"Szymon",
+"Wiktor",
+"Oskar"
 ];
 
+
+/* ================= DANE ================= */
+
 const players = names.map((name,index)=>({
+
     id:index,
+
     name:name,
+
     votes:0,
+
     target:0
+
 }));
 
-const ranking=document.getElementById("ranking");
-const GAP=78;
 
-/* Tworzenie graczy */
+const ranking =
+    document.getElementById("ranking");
+
+const GAP = 78;
+
+
+/* ================= TWORZENIE ================= */
 
 players.forEach(player=>{
 
-    const el=document.createElement("div");
+    const el =
+        document.createElement("div");
 
     el.className="player";
+
     el.dataset.id=player.id;
 
     el.innerHTML=`
-        <div class="position">#${player.id+1}</div>
-        <div class="name">${player.name}</div>
+
+        <div class="position">
+            #${player.id+1}
+        </div>
+
+        <div class="name">
+            ${player.name}
+        </div>
+
         <div class="votes">
             <span>0</span> głosów
         </div>
-        <div class="percent">0%</div>
+
+        <div class="percent">
+            0.00%
+        </div>
+
     `;
 
     ranking.appendChild(el);
+
 });
 
+
+/* ================= ELEMENT ================= */
+
 function getElement(player){
+
     return document.querySelector(
         `.player[data-id="${player.id}"]`
     );
+
 }
+
+
+/* ================= SORTOWANIE ================= */
 
 function sortPlayers(){
 
     players.sort((a,b)=>{
 
-        if(b.votes!==a.votes)
+        if(b.votes !== a.votes){
+
             return b.votes-a.votes;
+
+        }
 
         return a.id-b.id;
 
     });
+
 }
 
-/*
-    MAKSYMALNIE 3 OSOBY
-    dostają głosy podczas jednej sekundy.
 
-    Każda z nich dostaje 1–5 głosów.
+/* ================= NOWE GŁOSY ================= */
+
+/*
+
+    MAKSYMALNIE 10 OSÓB
+    może dostać głosy podczas jednej sekundy.
+
+    Każda z wybranych osób dostaje
+    od 1 do 10 głosów.
+
 */
 
 function addVotes(){
 
-    const shuffled=[...players]
-        .sort(()=>Math.random()-0.5);
+    const shuffled =
+        [...players].sort(
+            ()=>Math.random()-0.5
+        );
 
-    const amountOfPlayers=
-        Math.floor(Math.random()*3)+1;
+    const amountOfPlayers =
+        Math.floor(Math.random()*10)+1;
 
-    for(let i=0;i<amountOfPlayers;i++){
+
+    for(
+        let i=0;
+        i<amountOfPlayers;
+        i++
+    ){
 
         const player=shuffled[i];
 
-        const amount=
-            Math.floor(Math.random()*5)+1;
+        const amount =
+            Math.floor(Math.random()*10)+1;
 
-        player.target+=amount;
+        player.target += amount;
+
     }
+
 }
 
-/*
-    Ranking + procenty
-*/
+
+/* ================= RENDER ================= */
 
 function render(){
 
     sortPlayers();
 
-    const top1=players[0]?.votes || 1;
-    const total=players.reduce(
-        (sum,p)=>sum+p.votes,0
-    );
 
-    document.getElementById("totalVotes")
-        .textContent=total.toLocaleString("pl-PL");
+    /* ŁĄCZNA LICZBA GŁOSÓW */
+
+    const total =
+        players.reduce(
+            (sum,player)=>
+                sum+player.votes,
+            0
+        );
+
+
+    document.getElementById(
+        "totalVotes"
+    ).textContent =
+        total.toLocaleString("pl-PL");
+
+
+    /* PROCENTY */
 
     players.forEach((player,index)=>{
 
-        const el=getElement(player);
+        const el =
+            getElement(player);
 
-        el.querySelector(".position")
-            .textContent="#"+(index+1);
 
-        el.querySelector(".votes span")
-            .textContent=player.votes;
+        el.querySelector(
+            ".position"
+        ).textContent =
+            "#"+(index+1);
 
-        const percentage=
-            (player.votes/top1)*100;
 
-        el.querySelector(".percent")
-            .textContent=
-            percentage.toFixed(1)+"%";
+        el.querySelector(
+            ".votes span"
+        ).textContent =
+            player.votes;
+
+
+        /*
+            WAŻNE:
+
+            Procent jest liczony
+            z CAŁEJ puli głosów.
+
+            Czyli np.
+            100 głosów z 1000 =
+            10%.
+        */
+
+        const percentage =
+            total > 0
+            ? (player.votes/total)*100
+            : 0;
+
+
+        el.querySelector(
+            ".percent"
+        ).textContent =
+            percentage.toFixed(2)+"%";
+
 
         el.classList.toggle(
             "top",
             index===0
         );
 
-        el.style.transform=
+
+        /*
+            Płynne przesuwanie
+        */
+
+        el.style.transform =
             `translateY(${index*GAP}px)`;
+
     });
 
-    ranking.style.height=
-        ((players.length-1)*GAP+68)+"px";
+
+    ranking.style.height =
+        (
+            (players.length-1)*GAP
+            +68
+        )+"px";
+
 
     updateTop3();
+
 }
 
-/*
-    TOP 3 słupki
-*/
+
+/* ================= TOP 3 ================= */
 
 function updateTop3(){
 
-    const first=players[0];
-    const second=players[1];
-    const third=players[2];
+    if(players.length<3)
+        return;
 
-    if(!first) return;
 
-    const firstVotes=Math.max(first.votes,1);
+    /*
+        SŁUPKI SĄ STAŁE:
 
-    const p1=100;
-    const p2=(second.votes/firstVotes)*100;
-    const p3=(third.votes/firstVotes)*100;
+        TOP 1 = 100%
+        TOP 2 = 58%
+        TOP 3 = 38%
 
-    document.getElementById("top1Name")
-        .textContent=first.name;
+        Zmieniają się tylko osoby.
+    */
 
-    document.getElementById("top2Name")
-        .textContent=second.name;
 
-    document.getElementById("top3Name")
-        .textContent=third.name;
+    document.getElementById(
+        "top1Name"
+    ).textContent =
+        players[0].name;
 
-    document.getElementById("top1Percent")
-        .textContent=p1.toFixed(1)+"%";
 
-    document.getElementById("top2Percent")
-        .textContent=p2.toFixed(1)+"%";
+    document.getElementById(
+        "top2Name"
+    ).textContent =
+        players[1].name;
 
-    document.getElementById("top3Percent")
-        .textContent=p3.toFixed(1)+"%";
 
-    document.getElementById("bar1")
-        .style.height="100%";
+    document.getElementById(
+        "top3Name"
+    ).textContent =
+        players[2].name;
 
-    document.getElementById("bar2")
-        .style.height=Math.max(p2,5)+"%";
-
-    document.getElementById("bar3")
-        .style.height=Math.max(p3,5)+"%";
 }
 
-/*
-    Płynne naliczanie głosów.
-*/
 
-let lastUpdate=performance.now();
+/* ================= ANIMACJA ================= */
+
+let lastUpdate =
+    performance.now();
+
 
 function animate(time){
 
-    if(time-lastUpdate>=50){
+    /*
+        Płynne zwiększanie licznika.
+    */
+
+    if(time-lastUpdate >= 45){
 
         players.forEach(player=>{
 
-            if(player.votes<player.target){
+            if(
+                player.votes <
+                player.target
+            ){
+
                 player.votes++;
+
             }
 
         });
 
+
         render();
 
+
         lastUpdate=time;
+
     }
 
-    requestAnimationFrame(animate);
+
+    requestAnimationFrame(
+        animate
+    );
+
 }
+
+
+/* ================= START ================= */
 
 render();
 
-/* Nowe głosy co sekundę */
-setInterval(addVotes,1000);
 
-/* Start animacji */
-requestAnimationFrame(animate);
+/*
+    Nowe osoby/głosy
+    co około sekundę.
+*/
+
+setInterval(
+    addVotes,
+    1000
+);
+
+
+/*
+    Start licznika.
+*/
+
+requestAnimationFrame(
+    animate
+);
 
 </script>
 
