@@ -2,760 +2,721 @@
 <html lang="pl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ranking głosów</title>
 
 <style>
-*{
-    box-sizing:border-box;
+
+* {
+    box-sizing: border-box;
 }
 
-body{
-    margin:0;
-    min-height:100vh;
-    background:#0b0b0f;
-    color:white;
-    font-family:Arial,sans-serif;
-    padding:30px;
+body {
+    margin: 0;
+    min-height: 100vh;
+    background: #0b0b0f;
+    color: white;
+    font-family: Arial, sans-serif;
+    padding: 30px;
 }
 
-.wrapper{
-    width:100%;
-    max-width:1200px;
-    margin:auto;
+.container {
+    width: 100%;
+    max-width: 1250px;
+    margin: auto;
 }
 
-h1{
-    text-align:center;
-    font-size:38px;
-    margin:0 0 8px;
+h1 {
+    text-align: center;
+    font-size: 38px;
+    margin: 0 0 18px;
 }
 
-.total{
-    text-align:center;
-    font-size:19px;
-    font-weight:bold;
-    color:#8cff8c;
-    margin-bottom:30px;
+.total-box {
+    background: #15151c;
+    border: 1px solid #292933;
+    border-radius: 16px;
+    padding: 18px 22px;
+    margin-bottom: 18px;
+    text-align: center;
 }
 
-/* ================= TOP 3 ================= */
-
-.top3{
-    display:flex;
-    justify-content:center;
-    align-items:flex-end;
-    gap:20px;
-    height:300px;
-    margin-bottom:35px;
+.total-title {
+    color: #888;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 5px;
 }
 
-.top-card{
-    width:190px;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
+.total-votes {
+    font-size: 30px;
+    font-weight: 800;
+    color: #7dff88;
 }
 
-.top-name{
-    font-size:18px;
-    font-weight:bold;
-    margin-bottom:6px;
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;
-    max-width:190px;
+.content {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 430px;
+    gap: 22px;
+    align-items: start;
 }
 
-.top-percent{
-    font-size:16px;
-    color:#8cff8c;
-    font-weight:bold;
-    margin-bottom:8px;
+#ranking {
+    position: relative;
 }
 
-.bar-wrapper{
-    width:100%;
-    height:200px;
-    display:flex;
-    align-items:flex-end;
-}
-
-.bar{
-    width:100%;
-    border-radius:14px 14px 5px 5px;
-    background:linear-gradient(to top,#292933,#555563);
-}
-
-/* STAŁE WYSOKOŚCI */
-
-#bar1{
-    height:100%;
-}
-
-#bar2{
-    height:58%;
-}
-
-#bar3{
-    height:38%;
-}
-
-#bar1{
-    background:linear-gradient(to top,#d6a900,#f5c542);
-}
-
-.rank-number{
-    margin-top:9px;
-    font-size:18px;
-    font-weight:bold;
-    color:#777;
-}
-
-/* ================= RANKING ================= */
-
-#ranking{
-    position:relative;
-    width:100%;
-}
-
-.player{
-    position:absolute;
-    left:0;
-    width:100%;
-    height:68px;
-
-    background:#15151c;
-    border:1px solid #292933;
-    border-radius:15px;
-
-    padding:0 20px;
-
-    display:flex;
-    align-items:center;
+.player {
+    height: 72px;
+    margin-bottom: 10px;
+    background: #15151c;
+    border: 1px solid #292933;
+    border-radius: 16px;
+    padding: 0 22px;
+    display: flex;
+    align-items: center;
 
     transition:
-        transform .7s cubic-bezier(.2,.8,.2,1),
-        border-color .3s,
-        box-shadow .3s;
+        transform 1s cubic-bezier(.16,1,.3,1),
+        border-color .35s ease,
+        box-shadow .35s ease;
 }
 
-.player.top{
-    border-color:#f5c542;
-    box-shadow:0 0 22px rgba(245,197,66,.15);
+.player.top {
+    border-color: #f5c542;
+    box-shadow: 0 0 25px rgba(245,197,66,.18);
 }
 
-.position{
-    width:60px;
-    font-size:21px;
-    font-weight:800;
-    color:#777;
+.position {
+    width: 58px;
+    font-size: 24px;
+    font-weight: 800;
+    color: #777;
 }
 
-.player.top .position{
-    color:#f5c542;
+.top .position {
+    color: #f5c542;
 }
 
-.name{
-    flex:1;
-    font-size:18px;
-    font-weight:700;
+.name {
+    flex: 1;
+    font-size: 20px;
+    font-weight: 700;
 }
 
-.votes{
-    min-width:125px;
-    text-align:right;
-    font-size:18px;
-    font-weight:bold;
+.votes {
+    font-size: 20px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
-.votes span{
-    color:#8cff8c;
+.vote-count {
+    color: #7dff88;
+    min-width: 70px;
+    text-align: right;
 }
 
-.percent{
-    width:85px;
-    text-align:right;
-    color:#aaa;
-    font-size:15px;
-    font-weight:bold;
+.vote-percent {
+    color: #888;
+    font-size: 14px;
+    min-width: 55px;
+    text-align: right;
 }
 
-/* ================= RESPONSIVE ================= */
 
-@media(max-width:700px){
+/* =========================
+   TOP 3 - GÓRKA WYBORCZA
+========================= */
 
-    body{
-        padding:15px;
+.top3-box {
+    background: #15151c;
+    border: 1px solid #292933;
+    border-radius: 16px;
+    padding: 22px;
+    position: sticky;
+    top: 30px;
+}
+
+.top3-title {
+    text-align: center;
+    font-size: 22px;
+    font-weight: 800;
+    margin-bottom: 8px;
+}
+
+.top3-subtitle {
+    text-align: center;
+    color: #777;
+    font-size: 13px;
+    margin-bottom: 20px;
+}
+
+.chart {
+    height: 360px;
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 18px;
+    padding: 0 12px 35px;
+    border-bottom: 2px solid #292933;
+}
+
+.chart::before,
+.chart::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: #202028;
+}
+
+.chart::before {
+    top: 25%;
+}
+
+.chart::after {
+    top: 50%;
+}
+
+.bar-wrap {
+    width: 30%;
+    height: 100%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    position: relative;
+    z-index: 2;
+}
+
+.bar {
+    width: 100%;
+    max-width: 105px;
+    border-radius: 12px 12px 3px 3px;
+    position: relative;
+
+    transition:
+        height 1s cubic-bezier(.16,1,.3,1);
+
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.bar.first {
+    background: linear-gradient(
+        to top,
+        #a77b00,
+        #f5c542
+    );
+}
+
+.bar.second {
+    background: linear-gradient(
+        to top,
+        #626262,
+        #bdbdbd
+    );
+}
+
+.bar.third {
+    background: linear-gradient(
+        to top,
+        #704b2a,
+        #a8784d
+    );
+}
+
+.bar-name {
+    position: absolute;
+    bottom: calc(100% + 10px);
+    white-space: nowrap;
+    font-weight: 800;
+    font-size: 15px;
+}
+
+.bar-votes {
+    position: absolute;
+    bottom: calc(100% + 32px);
+    white-space: nowrap;
+    color: #7dff88;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.medal {
+    position: absolute;
+    bottom: -31px;
+    font-size: 20px;
+}
+
+.percent {
+    position: absolute;
+    bottom: calc(100% + 50px);
+    white-space: nowrap;
+    font-size: 12px;
+    color: #888;
+}
+
+.chart-label {
+    position: absolute;
+    bottom: 7px;
+    color: #555;
+    font-size: 11px;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 900px) {
+
+    .content {
+        grid-template-columns: 1fr;
     }
 
-    .top3{
-        gap:8px;
-        height:230px;
-    }
-
-    .top-card{
-        width:31%;
-    }
-
-    .bar-wrapper{
-        height:150px;
-    }
-
-    .top-name{
-        font-size:14px;
-        max-width:100%;
-    }
-
-    .player{
-        padding:0 12px;
-    }
-
-    .position{
-        width:45px;
-        font-size:18px;
-    }
-
-    .name{
-        font-size:15px;
-    }
-
-    .votes{
-        min-width:90px;
-        font-size:15px;
-    }
-
-    .percent{
-        width:60px;
-        font-size:13px;
+    .top3-box {
+        position: static;
     }
 }
+
+@media (max-width: 550px) {
+
+    body {
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 30px;
+    }
+
+    .player {
+        padding: 0 14px;
+    }
+
+    .position {
+        width: 48px;
+    }
+
+    .name {
+        font-size: 17px;
+    }
+
+    .votes {
+        font-size: 16px;
+    }
+
+    .vote-percent {
+        font-size: 12px;
+        min-width: 45px;
+    }
+
+    .top3-box {
+        padding: 15px;
+    }
+}
+
 </style>
 </head>
 
 <body>
 
-<div class="wrapper">
+<div class="container">
 
     <h1>🏆 Ranking głosów</h1>
 
-    <div class="total">
-        ŁĄCZNA LICZBA GŁOSÓW:
-        <span id="totalVotes">0</span>
+    <div class="total-box">
+        <div class="total-title">Wszystkie głosy</div>
+        <div class="total-votes" id="totalVotes">0</div>
     </div>
 
-    <!-- TOP 3 -->
+    <div class="content">
 
-    <div class="top3">
+        <div id="ranking"></div>
 
-        <!-- TOP 2 -->
+        <div class="top3-box">
 
-        <div class="top-card">
-
-            <div class="top-name" id="top2Name">
-                ---
+            <div class="top3-title">
+                📊 TOP 3
             </div>
 
-            <div class="top-percent">
-                58%
+            <div class="top3-subtitle">
+                Wyniki głosowania
             </div>
 
-            <div class="bar-wrapper">
-                <div class="bar" id="bar2"></div>
+            <div class="chart">
+
+                <div class="bar-wrap">
+                    <div class="bar second" id="bar2">
+                        <div class="bar-name" id="name2"></div>
+                        <div class="bar-votes" id="votes2"></div>
+                        <div class="percent" id="percent2"></div>
+                        <div class="medal">🥈</div>
+                    </div>
+                </div>
+
+                <div class="bar-wrap">
+                    <div class="bar first" id="bar1">
+                        <div class="bar-name" id="name1"></div>
+                        <div class="bar-votes" id="votes1"></div>
+                        <div class="percent" id="percent1"></div>
+                        <div class="medal">🥇</div>
+                    </div>
+                </div>
+
+                <div class="bar-wrap">
+                    <div class="bar third" id="bar3">
+                        <div class="bar-name" id="name3"></div>
+                        <div class="bar-votes" id="votes3"></div>
+                        <div class="percent" id="percent3"></div>
+                        <div class="medal">🥉</div>
+                    </div>
+                </div>
+
+                <div class="chart-label">
+                    LICZBA GŁOSÓW
+                </div>
+
             </div>
-
-            <div class="rank-number">
-                🥈 TOP 2
-            </div>
-
-        </div>
-
-
-        <!-- TOP 1 -->
-
-        <div class="top-card">
-
-            <div class="top-name" id="top1Name">
-                ---
-            </div>
-
-            <div class="top-percent">
-                100%
-            </div>
-
-            <div class="bar-wrapper">
-                <div class="bar" id="bar1"></div>
-            </div>
-
-            <div class="rank-number">
-                🥇 TOP 1
-            </div>
-
-        </div>
-
-
-        <!-- TOP 3 -->
-
-        <div class="top-card">
-
-            <div class="top-name" id="top3Name">
-                ---
-            </div>
-
-            <div class="top-percent">
-                38%
-            </div>
-
-            <div class="bar-wrapper">
-                <div class="bar" id="bar3"></div>
-            </div>
-
-            <div class="rank-number">
-                🥉 TOP 3
-            </div>
-
         </div>
 
     </div>
-
-    <div id="ranking"></div>
-
 </div>
-
 
 <script>
 
-/* ================= OSOBY ================= */
-
-const names = [
-"GACEK33",
-"Kefir",
-"Bober",
-"Ziemniok",
-"Kabanos",
-"Ogórek",
-"Parówa",
-"Boczek",
-"Kartofel",
-"Papaj",
-"Dzban",
-"Kisiel",
-"Serek",
-"Majonez",
-"Cebulak",
-"Pączek",
-"Banan",
-"Kremówka",
-"Pyza",
-"Kluska",
-"Mopik",
-"Bobr",
-"Krecik",
-"Pieseł",
-"Żabka",
-"Szczurek",
-"Chlebek",
-"Bułka",
-"Mleczyk",
-"Jogurt",
-"Budyn",
-"Ketchup",
-"Musztarda",
-"Pieróg",
-"Rosół",
-"Schabik",
-"Czosnek",
-"Marchew",
-"Buraczek",
-"Fasolka",
-"Kalafior",
-"Brokuł",
-"Arbuzik",
-"Kefirek",
-"Kefir69",
-"PanKefir",
-"KefirEnjoyer",
-"BoberPL",
-"ZiemniakTV",
-"Dzbanek",
-"Cebulson",
-"Kabanosik",
-"Parowkowy",
-"Boczuś",
-"Ogóras",
-"Kartofel69",
-"Papajek",
-"Mop",
-"Kisielu",
-"SerekPL",
-"Bananowy",
-"Pączus",
-"Klusior",
-"Pyziak",
-"Chlebson",
-"Bułeczkowy",
-"Jogurt69",
-"Mleczny",
-"Majonezik",
-"Ketchupik",
-"Musztardowy",
-"BobrEnjoyer",
-"KrecikPL",
-"Zaba69",
-"Piesełek",
-"SzczurPL",
-"XDkefir",
-"XDDZiemniak",
-"NieMamNicku",
-"Random",
-"Nobody",
-"Anon",
-"Ktosik",
-"Widz",
-"ZwyklyWidz",
-"Losowy",
-"DzbanekPL",
-"KefirXD",
-"BoberXD",
-"ZiemniakXD",
-"KabanosXD",
-"OgorekXD",
-"MopXD",
-"Kacper",
-"Mati",
-"Kuba",
-"Szymon",
-"Wiktor",
-"Oskar"
+const startingData = [
+    ["GACEK33", 0],
+    ["2kosiara", 0],
+    ["Never Give Up", 0],
+    ["Kitler", 0],
+    ["p*bluu", 0],
+    ["bl0ondyna4", 0],
+    ["Beluga", 0],
+    ["MleczkoXD", 0],
+    ["siemakoledzy", 0],
+    ["Liluss3", 0]
 ];
 
-
-/* ================= DANE ================= */
-
-const players = names.map((name,index)=>({
-
-    id:index,
-
-    name:name,
-
-    votes:0,
-
-    target:0
-
+let players = startingData.map((p, i) => ({
+    id: i,
+    name: p[0],
+    votes: p[1],
+    target: p[1]
 }));
 
-
-const ranking =
-    document.getElementById("ranking");
-
-const GAP = 78;
+const ranking = document.getElementById("ranking");
+const totalVotes = document.getElementById("totalVotes");
 
 
-/* ================= TWORZENIE ================= */
+function createElements() {
 
-players.forEach(player=>{
+    players.forEach(player => {
 
-    const el =
-        document.createElement("div");
+        const el = document.createElement("div");
 
-    el.className="player";
+        el.className = "player";
+        el.dataset.id = player.id;
 
-    el.dataset.id=player.id;
+        el.innerHTML = `
+            <div class="position"></div>
+            <div class="name">${player.name}</div>
+            <div class="votes">
+                <span class="vote-count">${player.votes}</span> głosów
+                <span class="vote-percent">0%</span>
+            </div>
+        `;
 
-    el.innerHTML=`
-
-        <div class="position">
-            #${player.id+1}
-        </div>
-
-        <div class="name">
-            ${player.name}
-        </div>
-
-        <div class="votes">
-            <span>0</span> głosów
-        </div>
-
-        <div class="percent">
-            0.00%
-        </div>
-
-    `;
-
-    ranking.appendChild(el);
-
-});
+        ranking.appendChild(el);
+    });
+}
 
 
-/* ================= ELEMENT ================= */
+function updateVoteNumbers() {
 
-function getElement(player){
-
-    return document.querySelector(
-        `.player[data-id="${player.id}"]`
+    const total = players.reduce(
+        (sum, player) => sum + player.votes,
+        0
     );
 
-}
+    players.forEach(player => {
 
+        const el = document.querySelector(
+            `.player[data-id="${player.id}"]`
+        );
 
-/* ================= SORTOWANIE ================= */
+        if (el) {
 
-function sortPlayers(){
+            el.querySelector(".vote-count").textContent =
+                player.votes.toLocaleString("pl-PL");
 
-    players.sort((a,b)=>{
-
-        if(b.votes !== a.votes){
-
-            return b.votes-a.votes;
-
+            el.querySelector(".vote-percent").textContent =
+                ((player.votes / total) * 100).toFixed(1) + "%";
         }
-
-        return a.id-b.id;
-
     });
 
-}
-
-
-/* ================= NOWE GŁOSY ================= */
-
-/*
-
-    MAKSYMALNIE 10 OSÓB
-    może dostać głosy podczas jednej sekundy.
-
-    Każda z wybranych osób dostaje
-    od 1 do 10 głosów.
-
-*/
-
-function addVotes(){
-
-    const shuffled =
-        [...players].sort(
-            ()=>Math.random()-0.5
-        );
-
-    const amountOfPlayers =
-        Math.floor(Math.random()*10)+1;
-
-
-    for(
-        let i=0;
-        i<amountOfPlayers;
-        i++
-    ){
-
-        const player=shuffled[i];
-
-        const amount =
-            Math.floor(Math.random()*10)+1;
-
-        player.target += amount;
-
-    }
-
-}
-
-
-/* ================= RENDER ================= */
-
-function render(){
-
-    sortPlayers();
-
-
-    /* ŁĄCZNA LICZBA GŁOSÓW */
-
-    const total =
-        players.reduce(
-            (sum,player)=>
-                sum+player.votes,
-            0
-        );
-
-
-    document.getElementById(
-        "totalVotes"
-    ).textContent =
+    totalVotes.textContent =
         total.toLocaleString("pl-PL");
 
-
-    /* PROCENTY */
-
-    players.forEach((player,index)=>{
-
-        const el =
-            getElement(player);
+    updateTop3();
+}
 
 
-        el.querySelector(
-            ".position"
-        ).textContent =
-            "#"+(index+1);
+/* =========================
+   TOP 3 GÓRKA
+========================= */
 
+function updateTop3() {
 
-        el.querySelector(
-            ".votes span"
-        ).textContent =
-            player.votes;
+    const sorted = [...players].sort(
+        (a, b) => b.votes - a.votes
+    );
 
+    const top3 = sorted.slice(0, 3);
 
-        /*
-            WAŻNE:
+    if (top3.length < 3) return;
 
-            Procent jest liczony
-            z CAŁEJ puli głosów.
+    top3.forEach((player, index) => {
 
-            Czyli np.
-            100 głosów z 1000 =
-            10%.
-        */
+        const number = index + 1;
 
-        const percentage =
-            total > 0
-            ? (player.votes/total)*100
-            : 0;
+        const bar =
+            document.getElementById(`bar${number}`);
 
+        const name =
+            document.getElementById(`name${number}`);
 
-        el.querySelector(
-            ".percent"
-        ).textContent =
-            percentage.toFixed(2)+"%";
+        const votes =
+            document.getElementById(`votes${number}`);
 
-
-        el.classList.toggle(
-            "top",
-            index===0
-        );
+        const percent =
+            document.getElementById(`percent${number}`);
 
 
         /*
-            Płynne przesuwanie
+           Wysokości słupków:
+           TOP 1 = 100%
+           TOP 2 = 58%
+           TOP 3 = 38%
         */
 
-        el.style.transform =
-            `translateY(${index*GAP}px)`;
+        const heights = [
+            100,
+            58,
+            38
+        ];
 
+        const height = heights[index];
+
+        bar.style.height =
+            height + "%";
+
+
+        name.textContent =
+            player.name;
+
+        votes.textContent =
+            player.votes.toLocaleString("pl-PL");
+
+
+        const total =
+            players.reduce(
+                (sum, p) => sum + p.votes,
+                0
+            );
+
+        percent.textContent =
+            ((player.votes / total) * 100)
+            .toFixed(1) + "%";
+    });
+}
+
+
+/* =========================
+   DODAWANIE GŁOSÓW
+========================= */
+
+function giveVotes() {
+
+    const amountOfPlayers =
+        Math.floor(Math.random() * 5) + 3;
+
+    const selected = [];
+
+    while (
+        selected.length < amountOfPlayers
+    ) {
+
+        const player =
+            players[
+                Math.floor(
+                    Math.random() * players.length
+                )
+            ];
+
+        if (!selected.includes(player)) {
+            selected.push(player);
+        }
+    }
+
+    selected.forEach(player => {
+
+        const amount =
+            Math.floor(Math.random() * 15) + 1;
+
+        player.target += amount;
+    });
+}
+
+
+/* =========================
+   LICZNIKI
+========================= */
+
+function animateCounters() {
+
+    let changed = false;
+
+    players.forEach(player => {
+
+        if (player.votes < player.target) {
+
+            player.votes++;
+            changed = true;
+        }
     });
 
+    if (changed) {
+        updateVoteNumbers();
+    }
 
-    ranking.style.height =
-        (
-            (players.length-1)*GAP
-            +68
-        )+"px";
-
-
-    updateTop3();
-
+    requestAnimationFrame(
+        animateCounters
+    );
 }
 
 
-/* ================= TOP 3 ================= */
+/* =========================
+   RANKING + PŁYNNE PRZESUWANIE
+========================= */
 
-function updateTop3(){
+function updateRanking() {
 
-    if(players.length<3)
-        return;
+    const oldPositions = new Map();
 
+    document
+        .querySelectorAll(".player")
+        .forEach(el => {
 
-    /*
-        SŁUPKI SĄ STAŁE:
-
-        TOP 1 = 100%
-        TOP 2 = 58%
-        TOP 3 = 38%
-
-        Zmieniają się tylko osoby.
-    */
-
-
-    document.getElementById(
-        "top1Name"
-    ).textContent =
-        players[0].name;
-
-
-    document.getElementById(
-        "top2Name"
-    ).textContent =
-        players[1].name;
-
-
-    document.getElementById(
-        "top3Name"
-    ).textContent =
-        players[2].name;
-
-}
-
-
-/* ================= ANIMACJA ================= */
-
-let lastUpdate =
-    performance.now();
-
-
-function animate(time){
-
-    /*
-        Płynne zwiększanie licznika.
-    */
-
-    if(time-lastUpdate >= 45){
-
-        players.forEach(player=>{
-
-            if(
-                player.votes <
-                player.target
-            ){
-
-                player.votes++;
-
-            }
-
+            oldPositions.set(
+                el.dataset.id,
+                el.getBoundingClientRect().top
+            );
         });
 
 
-        render();
+    const sorted =
+        [...players].sort(
+            (a, b) => b.votes - a.votes
+        );
 
 
-        lastUpdate=time;
+    sorted.forEach((player, index) => {
 
-    }
+        const el =
+            document.querySelector(
+                `.player[data-id="${player.id}"]`
+            );
+
+        el.querySelector(".position")
+            .textContent =
+            "#" + (index + 1);
+
+        el.classList.toggle(
+            "top",
+            index === 0
+        );
+
+        ranking.appendChild(el);
+    });
 
 
-    requestAnimationFrame(
-        animate
-    );
+    sorted.forEach(player => {
 
+        const el =
+            document.querySelector(
+                `.player[data-id="${player.id}"]`
+            );
+
+        const oldY =
+            oldPositions.get(
+                String(player.id)
+            );
+
+        const newY =
+            el.getBoundingClientRect().top;
+
+
+        if (oldY !== undefined) {
+
+            const difference =
+                oldY - newY;
+
+
+            if (Math.abs(difference) > 1) {
+
+                el.style.transition = "none";
+
+                el.style.transform =
+                    `translateY(${difference}px)`;
+
+
+                requestAnimationFrame(() => {
+
+                    requestAnimationFrame(() => {
+
+                        el.style.transition =
+                            "transform 1s cubic-bezier(.16,1,.3,1), border-color .35s ease, box-shadow .35s ease";
+
+                        el.style.transform =
+                            "translateY(0)";
+                    });
+                });
+            }
+        }
+    });
+
+    updateTop3();
 }
 
 
-/* ================= START ================= */
+/* =========================
+   START
+========================= */
 
-render();
+createElements();
 
+updateRanking();
 
-/*
-    Nowe osoby/głosy
-    co około sekundę.
-*/
+updateVoteNumbers();
+
+animateCounters();
+
 
 setInterval(
-    addVotes,
+    giveVotes,
     1000
 );
 
 
-/*
-    Start licznika.
-*/
-
-requestAnimationFrame(
-    animate
+setInterval(
+    updateRanking,
+    250
 );
 
 </script>
