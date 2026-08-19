@@ -391,16 +391,16 @@ h1 {
 <script>
 
 const startingData = [
-    ["GACEK33", 50000],
-    ["2kosiara", 49700],
-    ["Never Give Up", 31500],
-    ["Kitler", 33500],
-    ["p*bluu", 30350],
-    ["bl0ondyna4", 37600],
-    ["Beluga", 35000],
-    ["cholewawa_rozix", 47000],
-    ["siemakoledzy", 47200],
-    ["Liluss3", 49500]
+    ["GACEK33", 56900],
+    ["2kosiara", 56300],
+    ["Never Give Up", 38200],
+    ["Kitler", 39800],
+    ["p*bluu", 37200],
+    ["bl0ondyna4", 44700],
+    ["Beluga", 41600],
+    ["cholewawa_rozix", 54190],
+    ["siemakoledzy", 54200],
+    ["Liluss3", 56450]
 ];
 
 let players = startingData.map((p, i) => ({
@@ -544,7 +544,7 @@ function updateTop3() {
 function giveVotes() {
 
     const amountOfPlayers =
-        Math.floor(Math.random() * 5) + 1;
+        Math.floor(Math.random() * 7) + 3;
 
     const selected = [];
 
@@ -567,7 +567,7 @@ function giveVotes() {
     selected.forEach(player => {
 
         const amount =
-            Math.floor(Math.random() * 20) + 1;
+            Math.floor(Math.random() * 25) + 1;
 
         player.target += amount;
     });
